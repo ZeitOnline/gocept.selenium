@@ -89,7 +89,7 @@ class NonexistentNameTest(unittest.TestCase):
     def assertError(self, error, name, expected_msg):
         try:
             getattr(self.selenese, name)
-        except error, e:
+        except error as e:
             msg = e.args[0]
         self.assertEquals(expected_msg, msg)
 

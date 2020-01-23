@@ -47,7 +47,7 @@ class Layer(plonetesting.Layer):
             'http://%s/' % self['http_address'])
         try:
             self['seleniumrc'].start()
-        except socket.error, e:
+        except socket.error as e:
             raise socket.error(
                 'Failed to connect to Selenium RC server at %s:%s,'
                 ' is it running? (%s)'

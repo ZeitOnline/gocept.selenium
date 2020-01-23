@@ -14,6 +14,7 @@
 
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+from six.moves.urllib.error import URLError
 import ast
 import atexit
 import gocept.selenium.wd_selenese
@@ -22,7 +23,6 @@ import os.path
 import selenium.webdriver
 import shutil
 import tempfile
-import urllib2
 
 
 # work around Python 2.4 lack of absolute_import,
@@ -94,8 +94,8 @@ class Layer(plonetesting.Layer):
             self['seleniumrc'] = selenium.webdriver.Remote(
                 'http://%s:%s/wd/hub' % (self._server, self._port),
                 **parameters)
-        except urllib2.URLError, e:
-            raise urllib2.URLError(
+        except URLError as e:
+            raise URLError(
                 'Failed to connect to Selenium server at %s:%s,'
                 ' is it running? (%s)'
                 % (self._server, self._port, e))

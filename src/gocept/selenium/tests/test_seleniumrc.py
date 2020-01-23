@@ -24,6 +24,6 @@ class LayerTest(unittest.TestCase):
         layer._port = 4445  # default port is 4444
         try:
             layer.setUp()
-        except Exception, e:
+        except Exception as e:
             self.assertTrue(str(e).startswith(
                 'Failed to connect to Selenium RC'))

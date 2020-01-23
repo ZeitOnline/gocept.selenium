@@ -773,7 +773,7 @@ class Selenese(object):
         while True:
             try:
                 assertion(*args, **kw)
-            except self.failureException, e:
+            except self.failureException as e:
                 if time.time() - start > self.timeout:
                     raise self.failureException(
                         'Timed out. %s' % e.args[0])

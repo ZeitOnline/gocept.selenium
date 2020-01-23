@@ -12,9 +12,9 @@
 #
 ##############################################################################
 
-from gocept.selenium.selenese import selenese_pattern_equals
 from gocept.selenium.screenshot import PRINT_JUNIT_ATTACHMENTS
 from gocept.selenium.screenshot import junit_attach_line
+from gocept.selenium.selenese import selenese_pattern_equals
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import WebDriverException
@@ -27,8 +27,8 @@ import contextlib
 import json
 import re
 import selenium.common.exceptions
+import six.moves.urllib.parse as urlparse
 import time
-import urlparse
 
 
 LOCATOR_JS = 'javascript'
@@ -179,7 +179,7 @@ class Selenese(object):
             try:
                 self._find(locator).click()
             except (StaleElementReferenceException,
-                    NoSuchElementException), e:
+                    NoSuchElementException) as e:
                 exc = e
                 time.sleep(0.1)
             else:
@@ -392,7 +392,7 @@ class Selenese(object):
                 return ('A screenshot could not be saved because document '
                         'body is empty.')
             if PRINT_JUNIT_ATTACHMENTS:
-                print '\n' + junit_attach_line(path, 'screenshot')
+                print('\n' + junit_attach_line(path, 'screenshot'))
             return 'A screenshot has been saved, see: %s' % path
 
     def clear(self, locator):
@@ -831,15 +831,15 @@ class Selenese(object):
             try:
                 with no_screenshot(self):
                     assertion(*args, **kw)
-            except self.failureExceptionClass, e:
+            except self.failureExceptionClass as e:
                 if time.time() - start > self.timeout:
                     raise self.failureException(
                         'Timed out after %s s. %s' % (self.timeout, e.args[0]))
-            except StaleElementReferenceException, e:
+            except StaleElementReferenceException as e:
                 if time.time() - start > self.timeout:
                     raise StaleElementReferenceException(
                         'Timed out after %s s. %s' % (self.timeout, e.msg))
-            except NoSuchElementException, e:
+            except NoSuchElementException as e:
                 if time.time() - start > self.timeout:
                     raise NoSuchElementException(
                         'Timed out after %s s. %s' % (self.timeout, e.msg))

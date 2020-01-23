@@ -31,7 +31,7 @@ class DiffComposition(object):
         self.paste_screenshots()
         tmpfile, compo_path = tempfile.mkstemp(
             prefix='gocept_selenium_diff', suffix='.png')
-        with open(compo_path, 'rw') as compo_file:
+        with open(compo_path, 'r+b') as compo_file:
             self.path = compo_file.name
             self.compo.convert('RGB').save(self.path)
             if SHOW_DIFF_IMG:
@@ -207,7 +207,7 @@ def make_screenshot(selenese, locator):
     if 0 in (dimensions['width'], dimensions['height']):
         raise ZeroDimensionError(locator)
 
-    with open(path, 'rw') as screenshot:
+    with open(path, 'r+b') as screenshot:
         box = (dimensions['left'], dimensions['top'],
                dimensions['left'] + dimensions['width'],
                dimensions['top'] + dimensions['height'])
@@ -226,7 +226,7 @@ def save_screenshot_temporary(screenshot):
     the filename."""
     tmpfile, got_path = tempfile.mkstemp(
         prefix='gocept_selenium_screenshot', suffix='.png')
-    with open(got_path, 'rw') as got:
+    with open(got_path, 'r+b') as got:
         screenshot.save(got.name)
     os.close(tmpfile)
     os.chmod(got_path, 0o644)

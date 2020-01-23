@@ -850,7 +850,7 @@ class Selenese(object):
     def _call_repr(self, name, *args, **kw):
         return '%s(%s)' % (
             name,
-            ', '.join(map(repr, args) +
+            ', '.join(list(map(repr, args)) +
                       ['%s=%r' % item for item in sorted(kw.items())]))
 
 

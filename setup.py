@@ -1,4 +1,4 @@
-from setuptools import find_packages
+from setuptools import find_namespace_packages
 from setuptools import setup
 
 
@@ -9,7 +9,6 @@ install_requires = [
     'plone.testing >= 7.0',
     'selenium >= 4',
     'Pillow',
-    'setuptools',
     'webdriver-manager',
 ]
 
@@ -58,12 +57,11 @@ setup(
         open('HACKING.rst').read() +
         '\n\n' +
         open('CHANGES.rst').read()),
-    packages=find_packages('src'),
+    packages=find_namespace_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
     license='ZPL 2.1',
-    namespace_packages=['gocept'],
     python_requires='>=3.7, <4',
     install_requires=install_requires,
     extras_require=dict(

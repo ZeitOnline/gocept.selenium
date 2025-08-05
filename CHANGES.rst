@@ -7,6 +7,8 @@ Changelog
 
 - Add support for Python 3.10, 3.11.
 
+- Switch from pkg_resources to pep420 namespace package declaration
+
 - Drop testing against ``Firefox`` in GitHub Actions: I was unable to solve the
   *API rate limit exceeded* problem.
 

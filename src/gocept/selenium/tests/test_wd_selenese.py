@@ -28,7 +28,7 @@ from unittest import mock
 import gocept.httpserverlayer.static
 import gocept.selenium
 import gocept.testing.assertion
-import importlib_resources
+import importlib.resources
 import os.path
 import pytest
 import shutil
@@ -98,7 +98,7 @@ class HTMLTestCase(gocept.selenium.webdriver.WebdriverSeleneseTestCase,
 
     def setUp(self):
         super().setUp()
-        directory = importlib_resources.files('gocept.selenium.tests.fixture')
+        directory = importlib.resources.files('gocept.selenium.tests.fixture')
         for glob in ('*.html', '*.pdf'):
             for name in directory.glob(glob):
                 shutil.copy(directory / name, self.layer['documentroot'])
@@ -383,7 +383,7 @@ class ScreenshotDirectorySettingTest(HTMLTestCase):
 
     def test_default_setting_when_not_set(self):
         # the default is the directory where the current test is
-        img = str(importlib_resources.files(self.__module__) / 'foo.png')
+        img = str(importlib.resources.files(self.__module__) / 'foo.png')
         self.selenium.capture_screenshot = True
         self.selenium.open('screenshot.html')
         with self.assertRaisesRegex(ValueError, img):
@@ -394,7 +394,7 @@ class ScreenshotDirectorySettingTest(HTMLTestCase):
     def test_screenshot_directory_setting_resolves_dotted_name(self):
         directory = 'gocept.selenium.tests.screenshot_directory'
         self.selenium.screenshot_directory = directory
-        img = str(importlib_resources.files(directory) / 'foo.png')
+        img = str(importlib.resources.files(directory) / 'foo.png')
         self.selenium.capture_screenshot = True
         self.selenium.open('screenshot.html')
         with self.assertRaisesRegex(ValueError, img):
